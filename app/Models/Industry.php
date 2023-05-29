@@ -5,14 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model
+class Industry extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
-
-    protected $casts = [
-        'transaction_info' => 'array',
-        'paid_at' => 'datetime'
-    ];
 }
