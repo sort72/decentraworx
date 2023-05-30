@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string('document')->nullable();
             $table->string('company_name')->nullable();
             $table->string('address')->nullable();
-            $table->string('category')->nullable();
+            $table->string('professional')->nullable();
+            $table->json('cv')->nullable();
+            $table->string('social_media')->nullable();
             $table->string('comments')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

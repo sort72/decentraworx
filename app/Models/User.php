@@ -32,5 +32,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'cv' => 'array'
     ];
+
+    public function industry()
+    {
+        return $this->belongsTo(Industry::class, 'industry_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(UserCategory::class, 'user_category_id');
+    }
 }
