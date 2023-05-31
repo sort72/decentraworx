@@ -13,23 +13,34 @@
 
     <!-- Styles -->
     @vite('resources/css/app.css')
+
+    @livewireStyles
 </head>
 
 <body class="antialiased">
     <section class="w-full bg-white">
         <div class="container px-8 mx-auto max-w-7xl">
             <nav class="flex items-center py-6">
-                <a href="#_" class="flex items-center text-3xl font-semibold leading-none">
+                <a href="{{ route('home') }}" class="flex items-center text-3xl font-semibold leading-none">
                     <span class="text-xl font-black leading-none text-gray-900 select-none logo">decentraworx<span
                             class="text-blue-600" data-primary="blue-600">.</span></span>
                 </a>
                 <div class="ml-auto">
-                    <a href="#_"
+                    @if (auth()->check())
+                    <a href="{{ config('filament.path') . '/' }}"
+                        class="inline-block px-4 py-3 mr-2 text-xs font-semibold leading-none text-blue-600 border border-blue-200 rounded hover:text-blue-700 hover:border-blue-300"
+                        data-rounded="rounded" data-primary="blue-600">
+                        Dashboard
+                    </a>
+                    @else
+                    <a href="{{ config('filament.path') . '/login' }}"
                         class="inline-block px-4 py-3 mr-2 text-xs font-semibold leading-none text-blue-600 border border-blue-200 rounded hover:text-blue-700 hover:border-blue-300"
                         data-rounded="rounded" data-primary="blue-600">Ingresar</a>
-                    <a href="#_"
+                    <a href="{{ config('filament.path') . '/register' }}"
                         class="inline-block px-4 py-3 text-xs font-semibold leading-none text-white bg-blue-600 rounded hover:bg-blue-700"
                         data-rounded="rounded" data-primary="blue-600">Registrate gratis</a>
+                    @endif
+
                 </div>
             </nav>
         </div>
@@ -115,5 +126,7 @@
         </div>
     </section>
 </body>
+
+@livewireScripts
 
 </html>

@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserCategory::class, 'user_category_id');
     }
+
+    public function offers()
+    {
+        return $this->belongsToMany(Offer::class, 'user_offer', 'user_id', 'offer_id')->withTimestamps()->withPivot(['status']);
+    }
 }

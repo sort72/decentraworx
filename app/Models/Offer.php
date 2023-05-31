@@ -17,6 +17,32 @@ class Offer extends Model
         return $this->belongsTo(User::class, 'company_id');
     }
 
+    public function employees()
+    {
+        return $this->belongsToMany(User::class, 'user_offer', 'offer_id', 'user_id')->withTimestamps()->withPivot(['status']);
+    }
+
+    public function getContractTypeNameAttribute()
+    {
+        $name = "";
+        switch($this->contract_type)
+        {
+            case 0:
+                $name = 'Fijo';
+                break;
+
+            case 1:
+                $name = 'Obra labor';
+                break;
+
+            case 2:
+                $name = 'Freelance';
+                break;
+        }
+
+        return $name;
+    }
+
     public function getContractTypeBadgeAttribute()
     {
         $name = "";

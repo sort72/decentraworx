@@ -16,4 +16,10 @@ class OfferController extends Controller
     {
         return view('pages.offer', compact('offer'));
     }
+    public function apply(Request $request, Offer $offer)
+    {
+        if($request->user()->type != 'employee') return redirect()->route('offers.show', $offer);
+
+        return view('pages.apply', compact('offer'));
+    }
 }
