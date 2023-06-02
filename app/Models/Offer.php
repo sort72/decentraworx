@@ -57,7 +57,7 @@ class Offer extends Model
 
             case 1:
                 $name = 'Obra labor';
-                $color = "bg-blue-200 text-blue-800";
+                $color = "bg-primary-200 text-blue-800";
                 break;
 
             case 2:

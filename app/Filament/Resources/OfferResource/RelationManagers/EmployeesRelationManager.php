@@ -21,9 +21,32 @@ class EmployeesRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->label('Nombre')
-                    ->required()
-                    ->maxLength(255),
+                    ->label('Nombre'),
+
+                Forms\Components\TextInput::make('email')
+                    ->label('Correo'),
+
+                Forms\Components\Select::make('user_category_id')
+                    ->relationship('category', 'name')
+                    ->label('Categoría'),
+
+                Forms\Components\TextInput::make('professional')
+                    ->label('Profesional'),
+
+                Forms\Components\TextInput::make('comments')
+                    ->label('Experiencia profesional (memo)'),
+
+                Forms\Components\FileUpload::make('cv')
+                    ->label('CV')
+                    ->preserveFilenames()
+                    ->reactive(),
+
+                Forms\Components\TextInput::make('social_media')
+                    ->label('Social media'),
+
+
+                Forms\Components\TextInput::make('address')
+                    ->label('Dirección'),
             ]);
     }
 
@@ -49,17 +72,18 @@ class EmployeesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
-                Tables\Actions\AttachAction::make(),
+                // Tables\Actions\CreateAction::make(),
+                // Tables\Actions\AttachAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DetachAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                // Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                // Tables\Actions\DetachAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DetachBulkAction::make(),
-                Tables\Actions\DeleteBulkAction::make(),
+                // Tables\Actions\DetachBulkAction::make(),
+                // Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 }

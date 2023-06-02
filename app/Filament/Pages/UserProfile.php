@@ -27,9 +27,6 @@ class UserProfile extends BaseProfile
                     Forms\Components\TextInput::make('professional')
                         ->label('Profesional'),
 
-                    Forms\Components\TextInput::make('social_media')
-                        ->label('Social media'),
-
                     Forms\Components\TextInput::make('comments')
                         ->label('Experiencia profesional (memo)'),
 

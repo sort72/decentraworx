@@ -16,8 +16,11 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\Filter;
+
 
 class OfferResource extends Resource
 {
@@ -116,7 +119,11 @@ class OfferResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('company_id')
+                    ->relationship('company', 'name', fn (Builder $query) => $query->where('type', 'company'))
+                    ->label('Empresa')
+                    ->hidden(auth()->user()->type != 'company')
+                    ->default(auth()->user()->type == 'company' ? auth()->user()->id : null),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

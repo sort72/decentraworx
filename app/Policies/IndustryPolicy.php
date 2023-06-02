@@ -2,28 +2,26 @@
 
 namespace App\Policies;
 
-use App\Models\Offer;
+use App\Models\Industry;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class OfferPolicy
+class IndustryPolicy
 {
-    // use HandlesAuthorization;
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->type == 'admin';
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Offer $offer): bool
+    public function view(User $user, Industry $industry): bool
     {
-        return true;
+        return $user->type == 'admin';
     }
 
     /**
@@ -31,40 +29,38 @@ class OfferPolicy
      */
     public function create(User $user): bool
     {
-        return $user->type == 'company';
+        return $user->type == 'admin';
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Offer $offer): bool
+    public function update(User $user, Industry $industry): bool
     {
-        return true;
+        return $user->type == 'admin';
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Offer $offer): bool
+    public function delete(User $user, Industry $industry): bool
     {
-        return false;
+        return $user->type == 'admin';
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Offer $offer): bool
+    public function restore(User $user, Industry $industry): bool
     {
-        return false;
+        return $user->type == 'admin';
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Offer $offer): bool
+    public function forceDelete(User $user, Industry $industry): bool
     {
-        return false;
+        return $user->type == 'admin';
     }
-
-
 }
