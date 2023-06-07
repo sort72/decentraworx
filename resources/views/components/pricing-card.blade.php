@@ -2,12 +2,12 @@
 
 @if ($selected)
 @php
-$class = "relative z-1 flex flex-col items-center max-w-md p-4 mx-auto my-0 bg-white border-4 border-primary-600
+$class = "relative z-[1] flex flex-col items-center max-w-md p-4 mx-auto my-0 bg-white border-4 border-primary-600
 border-solid rounded-lg sm:p-6 md:px-8 md:py-16"
 @endphp
 @else
 @php
-$class = "relative z-0 flex flex-col items-center max-w-md p-4 mx-auto my-0 border border-solid rounded-lg lg:-mr-3
+$class = "relative z-0 flex flex-col items-center max-w-md p-4 mx-auto my-0 border border-solid rounded-lg xl:-mr-3
 sm:my-0 sm:p-6 md:my-8 md:p-8"
 @endphp
 @endif

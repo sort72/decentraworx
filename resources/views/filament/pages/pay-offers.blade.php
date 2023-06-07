@@ -17,7 +17,7 @@
                 </p>
             </div>
             <div
-                class="grid grid-cols-1 gap-4 mt-4 leading-7 text-gray-900 border-0 border-gray-200 sm:mt-6 sm:gap-6 md:mt-8 md:gap-0 lg:grid-cols-3">
+                class="grid grid-cols-1 gap-4 mt-4 leading-7 text-gray-900 border-0 border-gray-200 sm:mt-6 sm:gap-6 md:mt-8 md:gap-0 xl:grid-cols-3">
                 <x-pricing-card title="Individual" quantity="1" price="10000" />
                 <x-pricing-card title="Paquete deluxe" quantity="15" price="100000" :selected="true" />
                 <x-pricing-card title="Paquete Enterprise" quantity="30" price="180000" />
