@@ -73,7 +73,7 @@ class Offer extends Model
     {
         $name = "";
 
-        switch($this->contract_type)
+        switch($this->payment_type)
         {
             case 0:
                 $name = 'Hora';

@@ -11,6 +11,8 @@ class OfferList extends Component
     use WithPagination;
 
     public $search = '';
+    public $contract_type = [];
+    public $payment_type = [];
 
     public function updatingSearch()
     {
@@ -32,6 +34,14 @@ class OfferList extends Component
                             $query->where('name', 'like', "%{$this->search}%");
                         })
                     ;
+        }
+        if(count($this->contract_type) > 0)
+        {
+            $offers = $offers->whereIn('contract_type', $this->contract_type);
+        }
+        if(count($this->payment_type) > 0)
+        {
+            $offers = $offers->whereIn('payment_type', $this->payment_type);
         }
 
         $offers = $offers->orderBy('created_at', 'desc')->paginate(10);
