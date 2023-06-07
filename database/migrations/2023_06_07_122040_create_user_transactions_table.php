@@ -14,13 +14,16 @@ return new class extends Migration
         Schema::create('user_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('status')->default('unpaid');
-            $table->string('transaction_id');
+            $table->string('payment_status')->default('unpaid');
+            $table->string('reference');
+            $table->string('transaction_id')->nullable();
             $table->unsignedTinyInteger('offers');
             $table->double('amount');
-            $table->json('payment_info')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->string('payment_info')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

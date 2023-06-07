@@ -1,5 +1,3 @@
-@props(['selected' => false, 'title', 'price', 'quantity'])
-
 @if ($selected)
 @php
 $class = "relative z-[1] flex flex-col items-center max-w-md p-4 mx-auto my-0 bg-white border-4 border-primary-600
@@ -63,9 +61,9 @@ sm:my-0 sm:p-6 md:my-8 md:p-8"
             Notifica a los candidatos aceptados para que se contacten contigo
         </li>
     </ul>
-    <button
-        class="transition-colors inline-flex justify-center w-full px-4 py-3 mt-8 font-sans text-sm leading-none text-center text-primary-600 no-underline bg-transparent border border-primary-600 rounded-md cursor-pointer hover:bg-primary-700 hover:border-primary-700 hover:text-white focus-within:bg-primary-700 focus-within:border-primary-700 focus-within:text-white sm:text-base md:text-lg"
-        data-primary="primary-600" data-rounded="rounded-md">
+    <button wire:click='generatePayment' wire:loading.attr="disabled" type="button"
+        wire:loading.class="cursor-not-allowed bg-primary-900 hover:bg-primary-900 text-white"
+        class="transition-colors inline-flex justify-center w-full px-4 py-3 mt-8 font-sans text-sm leading-none text-center text-primary-600 no-underline bg-transparent border border-primary-600 rounded-md hover:bg-primary-700 hover:border-primary-700 hover:text-white focus-within:bg-primary-700 focus-within:border-primary-700 focus-within:text-white sm:text-base md:text-lg">
         Comprar
     </button>
 </div>

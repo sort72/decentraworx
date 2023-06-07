@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Offer;
 use App\Models\UserOffer;
+use App\Observers\OfferObserver;
 use App\Observers\UserOfferObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -28,6 +30,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         UserOffer::observe(UserOfferObserver::class);
+        Offer::observe(OfferObserver::class);
     }
 
     /**
