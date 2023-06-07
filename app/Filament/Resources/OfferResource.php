@@ -122,7 +122,7 @@ class OfferResource extends Resource
                 SelectFilter::make('company_id')
                     ->relationship('company', 'name', fn (Builder $query) => $query->where('type', 'company'))
                     ->label('Empresa')
-                    ->hidden(auth()->user()->type != 'company')
+                    ->hidden(auth()->user()->type == 'company')
                     ->default(auth()->user()->type == 'company' ? auth()->user()->id : null),
             ])
             ->actions([

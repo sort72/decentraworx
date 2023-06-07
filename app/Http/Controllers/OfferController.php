@@ -9,8 +9,7 @@ class OfferController extends Controller
 {
     public function index()
     {
-        $offers = Offer::orderBy('created_at', 'desc')->paginate(10);
-        return view('pages.offers', compact('offers'));
+        return view('pages.offers');
     }
     public function show(Request $request, Offer $offer)
     {
