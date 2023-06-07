@@ -39,7 +39,7 @@ class OfferPolicy
      */
     public function update(User $user, Offer $offer): bool
     {
-        return $offer->user_id == $user->id || $user->type == 'admin';
+        return $offer->company_id == $user->id || $user->type == 'admin';
     }
 
     /**
