@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Pages\PayOffers;
 use App\Filament\Resources\OfferResource\Pages;
 use App\Filament\Resources\OfferResource\RelationManagers;
 use App\Models\Offer;
@@ -20,6 +21,8 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Filters\Filter;
+use Illuminate\Support\Facades\Log;
+use Filament\Tables\Actions\Action;
 
 
 class OfferResource extends Resource
@@ -127,6 +130,7 @@ class OfferResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

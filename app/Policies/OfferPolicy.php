@@ -31,7 +31,7 @@ class OfferPolicy
      */
     public function create(User $user): bool
     {
-        return $user->type == 'company';
+        return $user->type == 'company' && $user->offers_available > 0;
     }
 
     /**

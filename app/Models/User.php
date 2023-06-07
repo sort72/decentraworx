@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Offer::class, 'user_offer', 'user_id', 'offer_id')->withTimestamps()->withPivot(['status'])->using(UserOffer::class);
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(UserTransaction::class);
+    }
 }
