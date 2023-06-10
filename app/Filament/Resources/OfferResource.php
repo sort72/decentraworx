@@ -84,8 +84,8 @@ class OfferResource extends Resource
                             ->options([
                                 0 => 'Hora',
                                 1 => 'Entregable',
-                                2 => 'Mes',
-                                3 => 'Quincenal',
+                                2 => 'Quincenal',
+                                3 => 'Mes',
                             ])
                             ->label('Forma de pago')
                             ->required(),

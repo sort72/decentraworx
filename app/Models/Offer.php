@@ -84,11 +84,11 @@ class Offer extends Model
                 break;
 
             case 2:
-                $name = 'Mes';
+                $name = 'Quincenal';
                 break;
 
             case 3:
-                $name = 'Quincenal';
+                $name = 'Mes';
                 break;
         }
 
