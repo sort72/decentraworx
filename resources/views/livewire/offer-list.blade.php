@@ -8,12 +8,12 @@
             <h1 class="text-3xl font-semibold text-center mb-4">
                 Ofertas disponibles
             </h1>
-            <form wire:submit.prevent class="flex justify-center mb-6">
-                <div class="w-1/2">
+            <form wire:submit.prevent class="flex justify-center mb-10">
+                <div class="w-full">
                     <input placeholder="Busca una oferta..." wire:model="search"
                         class="form-input w-full border border-gray-300 shadow rounded-lg" />
 
-                    <div class="flex justify-center gap-3 mt-3">
+                    <div class="flex justify-center gap-3 mt-6">
                         <label>
                             <input type="checkbox" wire:model="contract_type" value="0"
                                 class="form-checkbox text-indigo-600 border-gray-300 shadow" />
@@ -31,7 +31,7 @@
                         </label>
                     </div>
 
-                    <div class="flex justify-center gap-3 mt-3">
+                    <div class="flex flex-wrap justify-center gap-3 mt-3">
                         <label>
                             <input type="checkbox" wire:model="payment_type" value="0"
                                 class="form-checkbox text-indigo-600 border-gray-300 shadow" />
