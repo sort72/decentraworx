@@ -6,6 +6,7 @@ use App\Filament\Pages\PayOffers;
 use App\Filament\Resources\OfferResource\Pages;
 use App\Filament\Resources\OfferResource\RelationManagers;
 use App\Models\Offer;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
@@ -19,6 +20,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\Relationship;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Support\Facades\Log;
@@ -120,6 +122,18 @@ class OfferResource extends Resource
                     ->label('Título de la oferta')
                     ->searchable()
                     ->sortable(),
+
+                TextColumn::make('Estado')
+                    ->hidden(auth()->user()->type != 'employee')
+                    ->getStateUsing(function (Offer $record) {
+                        return ucwords(__($record->employees()->where('user_id', auth()->user()->id)->first()->pivot->status));
+                    }),
+
+                TextColumn::make('Calificación')
+                    ->hidden(auth()->user()->type != 'employee')
+                    ->getStateUsing(function (Offer $record) {
+                        return ucwords(__($record->employees()->where('user_id', auth()->user()->id)->first()->pivot->rate));
+                    }),
             ])
             ->filters([
                 SelectFilter::make('company_id')
@@ -130,10 +144,11 @@ class OfferResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
 
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                // Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
@@ -151,5 +166,20 @@ class OfferResource extends Resource
             'create' => Pages\CreateOffer::route('/create'),
             'edit' => Pages\EditOffer::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if(auth()->user()->type == 'company')
+            $query = $query->where('company_id', auth()->user()->id);
+
+        else if(auth()->user()->type == 'employee')
+            $query = $query->whereHas('employees', function (Builder $query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+
+        return $query;
     }
 }

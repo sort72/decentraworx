@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('offer_id')->references('id')->on('offers');
             $table->string('status')->default('pending');
+            $table->string('rate')->nullable();
             $table->timestamps();
         });
     }

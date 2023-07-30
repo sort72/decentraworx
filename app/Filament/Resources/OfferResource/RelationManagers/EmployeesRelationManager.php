@@ -2,6 +2,10 @@
 
 namespace App\Filament\Resources\OfferResource\RelationManagers;
 
+use App\Models\Offer;
+use App\Models\User;
+use App\Models\UserOffer;
+use Closure;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -60,13 +64,26 @@ class EmployeesRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('email')
                     ->label('Correo'),
 
-                Tables\Columns\SelectColumn::make('status')
+                    Tables\Columns\SelectColumn::make('status')
                     ->options([
                         'pending' => 'Pendiente',
                         'approved' => 'Aceptado',
                         'rejected' => 'Rechazado',
                     ])
                     ->label('Estado'),
+
+                Tables\Columns\SelectColumn::make('rate')
+                    ->options([
+                        '1' => '1 estrella',
+                        '2' => '2 estrellas',
+                        '3' => '3 estrellas',
+                        '4' => '4 estrellas',
+                        '5' => '5 estrellas',
+                    ])
+                    ->disabled(function($record) {
+                        return $record->status !== 'approved';
+                    })
+                    ->label('Calificación'),
             ])
             ->filters([
                 //

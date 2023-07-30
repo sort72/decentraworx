@@ -2,5 +2,6 @@
     "unpaid": "sin pagar",
     "paid": "pagada",
     "pending": "pendiente",
-    "rejected": "rechazada"
+    "rejected": "rechazada",
+    "approved": "Aprobado"
 }

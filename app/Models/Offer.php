@@ -19,7 +19,7 @@ class Offer extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(User::class, 'user_offer', 'offer_id', 'user_id')->withTimestamps()->withPivot(['status'])->using(UserOffer::class);
+        return $this->belongsToMany(User::class, 'user_offer', 'offer_id', 'user_id')->withTimestamps()->withPivot(['status', 'rate'])->using(UserOffer::class);
     }
 
     public function getContractTypeNameAttribute()
