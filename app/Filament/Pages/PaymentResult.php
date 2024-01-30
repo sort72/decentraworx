@@ -25,50 +25,59 @@ class PaymentResult extends Page
     {
         parent::mount();
 
-        if(!request()->id) abort(404);
+        if (!request()->id)
+            abort(404);
 
         $link = env('WOMPI_TEST') ? "https://sandbox.wompi.co/v1/transactions/" : "https://production.wompi.co/v1/transactions/";
         $wompi = Http::get($link . request('id'));
 
-        if($wompi->json('data')['id']) {
+        if ($wompi->json('data')['id']) {
             $wompi = $wompi->object()->data;
             // dd($wompi);
             $transaction = UserTransaction::where('reference', $wompi->reference)->firstOrFail();
 
-            if($transaction->payment_status != 'paid')
-            {
-                if($wompi->status == 'APPROVED')
-                {
+            if ($transaction->payment_status != 'paid') {
+                if ($wompi->status == 'APPROVED') {
                     $transaction->update([
-                    'payment_status' => 'paid',
-                    'transaction_id' => $wompi->id,
-                    'payment_method' => $wompi->payment_method_type,
-                    'paid_at' => now()
+                        'payment_status' => 'paid',
+                        'transaction_id' => $wompi->id,
+                        'payment_method' => $wompi->payment_method_type,
+                        'paid_at' => now()
                     ]);
 
-                    $transaction->user()->update([
-                        'offers_available' => $transaction->user->offers_available + $transaction->offers
-                    ]);
+                    if (auth()->user()->type == 'employee') {
+                        $date = $transaction->user->employee_premium_until ?? now();
+                        $date = $date->addDays(30);
 
-                    // return view('frontend.pages.payment.success');
-                    $this->message = ['type' => 'success', 'text' => 'Hemos recibido tu pago. ¡Gracias! Se han añadido ' . $transaction->offers . ' ofertas a tu cuenta.'];
-                }
-                else if($wompi->status == 'PENDING')
-                {
+                        $transaction->user()->update([
+                            'employee_premium_until' => $date,
+                        ]);
+
+                        // return view('frontend.pages.payment.success');
+                        $this->message = ['type' => 'success', 'text' => 'Hemos recibido tu pago. ¡Gracias! Se ha actualizado tu suscripción y ahora tienes membresía activa hasta el ' . $date->format('d/m/Y') . '.'];
+                    } else {
+                        $transaction->user()->update([
+                            'offers_available' => $transaction->user->offers_available + $transaction->offers
+                        ]);
+
+                        // return view('frontend.pages.payment.success');
+                        $this->message = ['type' => 'success', 'text' => 'Hemos recibido tu pago. ¡Gracias! Se han añadido ' . $transaction->offers . ' ofertas a tu cuenta.'];
+                    }
+
+
+                } else if ($wompi->status == 'PENDING') {
                     $transaction_info = "<b>Número de convenio:</b> " . $wompi->payment_method->extra->business_agreement_code . "<br><b>Referencia de pago:</b> " . $wompi->payment_method->extra->payment_intention_identifier;
 
                     $transaction->update([
-                    'payment_status' => 'pending',
-                    'transaction_id' => $wompi->id,
-                    'payment_method' => $wompi->payment_method_type,
-                    'payment_info'  => $wompi->payment_method->extra->business_agreement_code . '|' . $wompi->payment_method->extra->payment_intention_identifier . '|' . now()->addDays(7),
+                        'payment_status' => 'pending',
+                        'transaction_id' => $wompi->id,
+                        'payment_method' => $wompi->payment_method_type,
+                        'payment_info' => $wompi->payment_method->extra->business_agreement_code . '|' . $wompi->payment_method->extra->payment_intention_identifier . '|' . now()->addDays(7),
                     ]);
 
                     $this->message = ['type' => 'success', 'text' => 'Tu pago se encuentra en espera. ' . $transaction_info];
 
-                }
-                else
-                {
+                } else {
                     $this->message = ['type' => 'error', 'text' => 'No hemos podido procesar tu pago. Mensaje de error: ' . $wompi->status_message];
                 }
             }
@@ -76,8 +85,8 @@ class PaymentResult extends Page
             $this->transaction = $transaction;
 
             // dd($this->message);
-        }
-        else abort(404);
+        } else
+            abort(404);
 
 
     }

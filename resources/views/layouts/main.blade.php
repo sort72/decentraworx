@@ -26,6 +26,13 @@
                 </a>
                 <div class="ml-auto">
                     @if (auth()->check())
+                    @if (auth()->user()->type != 'employee')
+                    <a href="{{ route('premium-users.index') }}"
+                        class="inline-block px-4 py-3 mr-2 text-xs font-semibold leading-none text-black border bg-gradient-to-tr from-yellow-200 to-yellow-400 border-yellow-500 rounded hover:text-yellow-700 hover:border-yellow-300"
+                        data-rounded="rounded" data-primary="blue-600">
+                        Hojas de vida premium
+                    </a>
+                    @endif
                     <a href="{{ config('filament.path') . '/' }}"
                         class="inline-block px-4 py-3 mr-2 text-xs font-semibold leading-none text-blue-600 border border-blue-200 rounded hover:text-blue-700 hover:border-blue-300"
                         data-rounded="rounded" data-primary="blue-600">
@@ -117,8 +124,7 @@
                     </a>
                 </div>
             </div>
-            <div
-                class="pt-4 mt-4 leading-7 text-center text-gray-600 border-t border-gray-200 md:mt-5 md:pt-5 md:mt-6 md:pt-6">
+            <div class="pt-4 mt-4 leading-7 text-center text-gray-600 border-t border-gray-200 md:mt-5 md:pt-5">
                 <p class="box-border mt-0 text-sm border-0 border-solid">&copy; 2023 decentraworx. Todos los derechos
                     reservados.</p>
             </div>

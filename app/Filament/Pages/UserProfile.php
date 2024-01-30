@@ -32,7 +32,8 @@ class UserProfile extends BaseProfile
 
                     Forms\Components\FileUpload::make('cv')
                         ->label('CV')
-                        ->preserveFilenames()
+                        ->directory('user-uploads')
+                        // ->preserveFilenames()
                         ->reactive(),
 
                     Forms\Components\TextInput::make('social_media')

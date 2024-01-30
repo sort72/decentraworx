@@ -37,84 +37,85 @@ class Register extends FilamentBreezyRegister
                 ->required()
                 ->email()
                 ->unique(table: config('filament-breezy.user_model'))
-                ->hidden(fn (Closure $get) => empty($get('type'))),
+                ->hidden(fn(Closure $get) => empty($get('type'))),
 
             // Employee
             Forms\Components\TextInput::make('name')
                 ->label(__('filament-breezy::default.fields.name'))
-                ->required(fn (Closure $get) => $get('type') == 'employee')
-                ->hidden(fn (Closure $get) => $get('type') != 'employee'),
+                ->required(fn(Closure $get) => $get('type') == 'employee')
+                ->hidden(fn(Closure $get) => $get('type') != 'employee'),
 
             Forms\Components\Select::make('user_category_id')
                 ->label('Categoría')
-                ->required(fn (Closure $get) => $get('type') == 'employee')
-                ->hidden(fn (Closure $get) => $get('type') != 'employee')
+                ->required(fn(Closure $get) => $get('type') == 'employee')
+                ->hidden(fn(Closure $get) => $get('type') != 'employee')
                 ->options($categories),
 
             Forms\Components\TextInput::make('professional')
                 ->label('Profesional')
-                ->required(fn (Closure $get) => $get('type') == 'employee')
-                ->hidden(fn (Closure $get) => $get('type') != 'employee'),
+                ->required(fn(Closure $get) => $get('type') == 'employee')
+                ->hidden(fn(Closure $get) => $get('type') != 'employee'),
 
             Forms\Components\TextInput::make('social_media')
                 ->label('Social media')
-                ->required(fn (Closure $get) => $get('type') == 'employee')
-                ->hidden(fn (Closure $get) => $get('type') != 'employee'),
+                ->required(fn(Closure $get) => $get('type') == 'employee')
+                ->hidden(fn(Closure $get) => $get('type') != 'employee'),
 
             Forms\Components\TextInput::make('comments')
                 ->label('Experiencia profesional (memo)')
-                ->required(fn (Closure $get) => $get('type') == 'employee')
-                ->hidden(fn (Closure $get) => $get('type') != 'employee'),
+                ->required(fn(Closure $get) => $get('type') == 'employee')
+                ->hidden(fn(Closure $get) => $get('type') != 'employee'),
 
             Forms\Components\FileUpload::make('cv')
                 ->label('CV')
-                ->preserveFilenames()
-                ->required(fn (Closure $get) => $get('type') == 'employee')
-                ->hidden(fn (Closure $get) => $get('type') != 'employee'),
+                // ->preserveFilenames()
+                ->directory('user-uploads')
+                ->required(fn(Closure $get) => $get('type') == 'employee')
+                ->hidden(fn(Closure $get) => $get('type') != 'employee'),
 
             Forms\Components\TextInput::make('social_media')
                 ->label('Social media')
-                ->required(fn (Closure $get) => $get('type') == 'employee')
-                ->hidden(fn (Closure $get) => $get('type') != 'employee'),
+                ->required(fn(Closure $get) => $get('type') == 'employee')
+                ->hidden(fn(Closure $get) => $get('type') != 'employee'),
 
 
             Forms\Components\TextInput::make('address')
                 ->label('Dirección')
-                ->required(fn (Closure $get) => $get('type') == 'employee')
-                ->hidden(fn (Closure $get) => $get('type') != 'employee'),
+                ->required(fn(Closure $get) => $get('type') == 'employee')
+                ->hidden(fn(Closure $get) => $get('type') != 'employee'),
 
             // Company
             Forms\Components\TextInput::make('company_name')
                 ->label('Nombre de la empresa')
-                ->required(fn (Closure $get) => $get('type') == 'company')
-                ->hidden(fn (Closure $get) => $get('type') != 'company'),
+                ->required(fn(Closure $get) => $get('type') == 'company')
+                ->hidden(fn(Closure $get) => $get('type') != 'company'),
 
             Forms\Components\TextInput::make('name')
                 ->label('Nombre del representante legal')
-                ->required(fn (Closure $get) => $get('type') == 'company')
-                ->hidden(fn (Closure $get) => $get('type') != 'company'),
+                ->required(fn(Closure $get) => $get('type') == 'company')
+                ->hidden(fn(Closure $get) => $get('type') != 'company'),
 
             Forms\Components\TextInput::make('document')
                 ->required()
                 ->label('NIT')
-                ->required(fn (Closure $get) => $get('type') == 'company')
-                ->hidden(fn (Closure $get) => $get('type') != 'company'),
+                ->required(fn(Closure $get) => $get('type') == 'company')
+                ->hidden(fn(Closure $get) => $get('type') != 'company'),
 
             Forms\Components\Select::make('industry_id')
                 ->label('Industria')
                 ->options($industries)
-                ->required(fn (Closure $get) => $get('type') == 'company')
-                ->hidden(fn (Closure $get) => $get('type') != 'company'),
+                ->required(fn(Closure $get) => $get('type') == 'company')
+                ->hidden(fn(Closure $get) => $get('type') != 'company'),
 
             Forms\Components\TextInput::make('comments')
                 ->label('Somos (memo)')
-                ->required(fn (Closure $get) => $get('type') == 'company')
-                ->hidden(fn (Closure $get) => $get('type') != 'company'),
+                ->required(fn(Closure $get) => $get('type') == 'company')
+                ->hidden(fn(Closure $get) => $get('type') != 'company'),
 
             Forms\Components\TextInput::make('social_media')
                 ->label('Social media')
-                ->required(fn (Closure $get) => $get('type') == 'company')
-                ->hidden(fn (Closure $get) => $get('type') != 'company'),
+                ->required(fn(Closure $get) => $get('type') == 'company')
+                ->hidden(fn(Closure $get) => $get('type') != 'company'),
 
 
             /////
@@ -124,14 +125,14 @@ class Register extends FilamentBreezyRegister
                 ->required()
                 ->password()
                 ->rules(app(FilamentBreezy::class)->getPasswordRules())
-                ->hidden(fn (Closure $get) => empty($get('type'))),
+                ->hidden(fn(Closure $get) => empty($get('type'))),
 
             Forms\Components\TextInput::make('password_confirm')
                 ->label(__('filament-breezy::default.fields.password_confirm'))
                 ->required()
                 ->password()
                 ->same('password')
-                ->hidden(fn (Closure $get) => empty($get('type'))),
+                ->hidden(fn(Closure $get) => empty($get('type'))),
         ];
 
     }

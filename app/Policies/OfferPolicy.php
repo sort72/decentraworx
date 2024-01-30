@@ -15,7 +15,7 @@ class OfferPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return ($user->type == 'employee' && $user->is_approved) || $user->type != 'employee';
     }
 
     /**

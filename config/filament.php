@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\Widgets\PendingApprovementWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -140,7 +141,7 @@ return [
         'path' => app_path('Filament/Widgets'),
         'register' => [
             Widgets\AccountWidget::class,
-            Widgets\FilamentInfoWidget::class,
+            PendingApprovementWidget::class,
         ],
     ],
 
