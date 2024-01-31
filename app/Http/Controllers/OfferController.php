@@ -12,7 +12,7 @@ class OfferController extends Controller
     {
         return view('pages.offers');
     }
-    public function show(Request $request, User $user)
+    public function show(Request $request, Offer $offer)
     {
         return view('pages.offer', compact('offer'));
     }
